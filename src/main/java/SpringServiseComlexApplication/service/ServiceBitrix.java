@@ -1,7 +1,7 @@
 package SpringServiseComlexApplication.service;
 
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -9,18 +9,19 @@ import java.io.IOException;
 @Service
 public class ServiceBitrix {
 
-    private static String token = "njub74k0f4u8g661";
+    @Value("${token}")
+    private String token;
 
     private static String link_page = "LINK: \"http://192.168.3.152:8080/service/%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%BE%D1%80%201\"";
     private static String info = "Произведено сервисное обслуживание оборудования ";
 
 
     public void messageBitrix(String complexName, String worksInfo, String username) throws IOException {
-
+        System.out.println("token " + token);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("DIALOG_ID", "chat214336")        //chat193256 - тестовый чат /getDialogId - получить id чата
+                .addFormDataPart("DIALOG_ID", "chat193256")        //chat193256 - тестовый чат, chat214336 -рабочий /getDialogId - получить id чата
                 .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + username + ". Проведенные работы: " + worksInfo + "\", NAME: \"" + info + complexName + " \", " + link_page + "}} ]")
                 .build();
         Request request = new Request.Builder()
@@ -30,6 +31,7 @@ public class ServiceBitrix {
                 .build();
         Response response = client.newCall(request).execute();
         System.out.println(response.body().string());
+
     }
 
 }
