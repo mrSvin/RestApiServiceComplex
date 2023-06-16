@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://192.168.3.41:8080", "http://192.168.3.152:8080", "http://iot.sespel.com"}, maxAge = 3600)
+@CrossOrigin(origins = {"*"}, maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class RestApiServiceComplex {

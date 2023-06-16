@@ -22,6 +22,6 @@ public interface HistoryRepository extends CrudRepository<ServiceHistory, Long> 
                     @Param("time_service") Date time_service, @Param("user_name") String user_name);
 
     @Query(value="SELECT * FROM stanki_service.service_history where complex_name=?1 order by time_service desc", nativeQuery = true)
-    public List<ServiceHistory> serviceInfo(String complexName);
+    List<ServiceHistory> serviceInfo(String complexName);
 
 }
