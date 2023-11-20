@@ -19,8 +19,13 @@ public class BotCheckerScheduler {
     @Scheduled(cron = "0 39 16 * * ?") // запуск в 12:00 каждый день
     public void botCheckerScheduler() {
         List<Map<String, Object>> data = historyRepository.serviceCheck();
-        System.out.println(data.get(0).get("complex_name"));
-        System.out.println(data.get(0).get("max_time"));
+        for (int i=0; i<data.size()-1; i++) {
+            System.out.println(data.get(i).get("complex_name"));
+            System.out.println(data.get(i).get("max_time"));
+            System.out.println(System.currentTimeMillis());
+            System.out.println(data.get(i).get("max_time").getClass());
+        }
+
     }
 
 
