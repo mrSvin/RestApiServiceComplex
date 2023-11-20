@@ -4,8 +4,10 @@ import SpringServiseComlexApplication.repository.HistoryRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +30,11 @@ public class BotCheckerScheduler {
         for (int i=0; i<data.size()-1; i++) {
             String complexName = (String) data.get(i).get("complex_name");
             Timestamp time = (Timestamp) data.get(i).get("max_time");
+            Integer periodService = (Integer) data.get(i).get("period_service");
 
-            if (timeNow>time.getTime()) {
-                serviceBitrix.messageBitrixElapsedTime(complexName, time);
+
+            if (timeNow>time.getTime()+periodService) {
+                serviceBitrix.messageBitrixElapsedTime(complexName, new Timestamp(time.getTime()+periodService));
             }
 
         }

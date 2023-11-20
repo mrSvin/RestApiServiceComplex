@@ -25,7 +25,7 @@ public interface HistoryRepository extends CrudRepository<ServiceHistory, Long> 
     @Query(value = "SELECT * FROM stanki_service.service_history where complex_name=?1 order by time_service desc", nativeQuery = true)
     List<ServiceHistory> serviceInfo(String complexName);
 
-    @Query(value = "SELECT complex_name, MAX(time_service) as max_time FROM stanki_service.service_history GROUP BY complex_name", nativeQuery = true)
+    @Query(value = "SELECT complex_name, MAX(time_service) as max_time, period_service FROM stanki_service.service_history GROUP BY complex_name", nativeQuery = true)
     List<Map<String, Object>> serviceCheck();
 
 }
