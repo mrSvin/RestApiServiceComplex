@@ -30,7 +30,7 @@ public class BotCheckerScheduler {
             Timestamp time = (Timestamp) data.get(i).get("max_time");
 
             if (timeNow>time.getTime()) {
-                serviceBitrix.messageBitrixElapsedTime(complexName);
+                serviceBitrix.messageBitrixElapsedTime(complexName, time);
             }
 
         }

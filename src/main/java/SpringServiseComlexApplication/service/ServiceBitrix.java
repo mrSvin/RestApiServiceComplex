@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 @Service
 public class ServiceBitrix {
@@ -18,7 +19,7 @@ public class ServiceBitrix {
 
     public void messageBitrix(String complexName, String worksInfo, String username) throws IOException {
         System.out.println(complexName);
-        String link_page = "LINK: \"http://iot.sespel.com/service/" + complexName + "\"";
+        String link_page = "LINK: \"http://iot.sespel.com/stanki/service/" + complexName + "\"";
         System.out.println("token " + token);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -36,15 +37,15 @@ public class ServiceBitrix {
 
     }
 
-    public void messageBitrixElapsedTime (String complexName) throws IOException {
+    public void messageBitrixElapsedTime (String complexName, Timestamp time) throws IOException {
         System.out.println(complexName);
-        String link_page = "LINK: \"http://iot.sespel.com/service/" + complexName + "\"";
+        String link_page = "LINK: \"http://iot.sespel.com/stanki/service/" + complexName + "\"";
         System.out.println("token " + token);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("DIALOG_ID", chatId)    
-                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + ". Истек срок проведения сервисного обслуживания, необходимо провести обслуживание оборудования: " + "\", NAME: \"" + complexName + " \", " + link_page + "}} ]")
+                .addFormDataPart("DIALOG_ID", chatId)
+                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + "Истек срок проведения сервисного обслуживания " + time + " ,необходимо провести обслуживание оборудования " + complexName + "\", NAME: \"" + complexName + " \", " + link_page + "}} ]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://sespel-auto.bitrix24.ru/rest/1004/" + token + "/im.message.add.json")
