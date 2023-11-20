@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
 @RestController
@@ -23,7 +24,7 @@ public class RestApiServiceComplex {
     }
 
     @PostMapping("/addService")
-    private String addService(@RequestBody AddServiceComplex addServiceComplex) {
+    private String addService(@RequestBody AddServiceComplex addServiceComplex, @RequestHeader("Authorization") String jwtBearer) {
 
         try {
             serviceBitrix.messageBitrix(addServiceComplex.getComplexName(), addServiceComplex.getInfoWorks(), addServiceComplex.getUserName());
@@ -32,12 +33,12 @@ public class RestApiServiceComplex {
         }
 
         return serviceComplexService.addService(addServiceComplex.getComplexName(), addServiceComplex.getInfoWorks(), addServiceComplex.getPeriodSrvice(),
-                addServiceComplex.getUserName());
+                addServiceComplex.getUserName(), jwtBearer);
     }
 
     @GetMapping("/serviceInfo/{complexName}")
-    private List<ServiceHistory> serviceInfo(@PathVariable String complexName) {
-        return serviceComplexService.infoService(complexName);
+    private Map<Object, Object> serviceInfo(@PathVariable String complexName, @RequestHeader("Authorization") String jwtBearer) {
+        return serviceComplexService.infoService(complexName, jwtBearer);
     }
 
 }
