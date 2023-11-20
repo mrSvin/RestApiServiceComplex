@@ -25,7 +25,7 @@ public class ServiceBitrix {
                 .build();
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("DIALOG_ID", chatId)
-                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + username + ". Проведенные работы: " + worksInfo + "\", NAME: \"" + info + complexName + " \"")
+                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + username + ". Проведенные работы: " + worksInfo + "\", NAME: \"" + info + complexName + " \", " + link_page + "}} ]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://sespel-auto.bitrix24.ru/rest/1004/" + token + "/im.message.add.json")
@@ -38,14 +38,12 @@ public class ServiceBitrix {
     }
 
     public void messageBitrixElapsedTime (String complexName, Timestamp time) throws IOException {
-        System.out.println(complexName);
-        String link_page = "LINK: \"http://iot.sespel.com/stanki/service/" + complexName + "\"";
-        System.out.println("token " + token);
+
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("DIALOG_ID", chatId)
-                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + "Истек срок проведения сервисного обслуживания " + time + " ,необходимо провести обслуживание оборудования " + complexName + "\", NAME: \"" + complexName + " \", " + link_page + "}} ]")
+                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + "Истек срок проведения сервисного обслуживания " + time + " ,необходимо провести обслуживание оборудования " + complexName + "\"")
                 .build();
         Request request = new Request.Builder()
                 .url("https://sespel-auto.bitrix24.ru/rest/1004/" + token + "/im.message.add.json")
