@@ -14,21 +14,14 @@ import java.util.Map;
 public class RestApiServiceComplex {
 
     private final ServiceComplexService serviceComplexService;
-    private final ServiceBitrix serviceBitrix;
 
-    public RestApiServiceComplex(ServiceComplexService serviceComplexService, ServiceBitrix serviceBitrix) {
+
+    public RestApiServiceComplex(ServiceComplexService serviceComplexService) {
         this.serviceComplexService = serviceComplexService;
-        this.serviceBitrix = serviceBitrix;
     }
 
     @PostMapping("/addService")
     private String addService(@RequestBody AddServiceComplex addServiceComplex, @RequestHeader("Authorization") String jwtBearer) {
-
-        try {
-            serviceBitrix.messageBitrix(addServiceComplex.getComplexName(), addServiceComplex.getInfoWorks(), addServiceComplex.getUserName());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return serviceComplexService.addService(addServiceComplex.getComplexName(), addServiceComplex.getInfoWorks(), addServiceComplex.getPeriodSrvice(),
                 addServiceComplex.getUserName(), jwtBearer);

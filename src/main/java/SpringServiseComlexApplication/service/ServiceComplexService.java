@@ -3,6 +3,7 @@ package SpringServiseComlexApplication.service;
 import SpringServiseComlexApplication.repository.HistoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +13,12 @@ public class ServiceComplexService {
 
     private final HistoryRepository historyRepository;
     private final JwtService jwtService;
+    private final ServiceBitrix serviceBitrix;
 
-    public ServiceComplexService(HistoryRepository historyRepository, JwtService jwtService) {
+    public ServiceComplexService(HistoryRepository historyRepository, JwtService jwtService, ServiceBitrix serviceBitrix) {
         this.historyRepository = historyRepository;
         this.jwtService = jwtService;
+        this.serviceBitrix = serviceBitrix;
     }
 
     public String addService(String complexName, String infoWorks, Integer period, String userName, String jwtToken) {
@@ -29,6 +32,13 @@ public class ServiceComplexService {
 
         Date date = new Date();
         historyRepository.addService(complexName, infoWorks, period, date, userName);
+
+        try {
+            serviceBitrix.messageBitrix(complexName, infoWorks, userName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "ok";
     }
 
