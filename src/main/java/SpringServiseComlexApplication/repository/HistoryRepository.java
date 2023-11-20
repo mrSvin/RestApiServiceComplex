@@ -1,6 +1,5 @@
 package SpringServiseComlexApplication.repository;
 
-import SpringServiseComlexApplication.dto.CheckBot;
 import SpringServiseComlexApplication.model.ServiceHistory;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,10 +22,10 @@ public interface HistoryRepository extends CrudRepository<ServiceHistory, Long> 
     void addService(@Param("complex_name") String complex_name, @Param("info_works") String info_works, @Param("period_service") int period_service,
                     @Param("time_service") Date time_service, @Param("user_name") String user_name);
 
-    @Query(value="SELECT * FROM stanki_service.service_history where complex_name=?1 order by time_service desc", nativeQuery = true)
+    @Query(value = "SELECT * FROM stanki_service.service_history where complex_name=?1 order by time_service desc", nativeQuery = true)
     List<ServiceHistory> serviceInfo(String complexName);
 
-    @Query(value="SELECT complex_name, MAX(time_service) as max_time FROM stanki_service.service_history GROUP BY complex_name", nativeQuery = true)
-    List<CheckBot> serviceCheck();
+    @Query(value = "SELECT complex_name, MAX(time_service) as max_time FROM stanki_service.service_history GROUP BY complex_name", nativeQuery = true)
+    List<Map<String, Object>> serviceCheck();
 
 }
