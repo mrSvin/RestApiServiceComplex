@@ -21,8 +21,9 @@ public class JwtService {
             Object roleJwt = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                     .parseClaimsJws(jwt).getBody().get("role");
+            System.out.println(roleJwt);
             if (roles.equals("service")) {
-                if (!roleJwt.equals("ROLE_SERVICE") || !roleJwt.equals("ROLE_ADMIN")) {
+                if (!roleJwt.equals("ROLE_SERVICE") && !roleJwt.equals("ROLE_ADMIN")) {
                     return "no rights";
                 }
             }

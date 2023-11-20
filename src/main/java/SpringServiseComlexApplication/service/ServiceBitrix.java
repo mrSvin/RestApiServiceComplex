@@ -14,7 +14,7 @@ public class ServiceBitrix {
     private String token;
 
     private String info = "Произведено сервисное обслуживание оборудования ";
-    private String chatId = "chat193256";   //chat193256 - тестовый чат, chat214336 -рабочий /getDialogId - получить id чата
+    private String chatId = "chat214336";   //chat193256 - тестовый чат, chat214336 -рабочий /getDialogId - получить id чата
 
 
     public void messageBitrix(String complexName, String worksInfo, String username) throws IOException {
