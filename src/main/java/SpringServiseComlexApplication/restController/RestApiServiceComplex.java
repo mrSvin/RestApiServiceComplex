@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Map;
 
-@CrossOrigin(origins = {"*"}, maxAge = 3600)
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = {"http://iot.sespel.com", "http://frontend.sespel.com", "http://192.168.3.96:3000", "http://192.168.2.78:3000"})
 public class RestApiServiceComplex {
 
     private final ServiceComplexService serviceComplexService;
@@ -27,7 +27,7 @@ public class RestApiServiceComplex {
                 addServiceComplex.getUserName(), jwtBearer);
     }
 
-    @GetMapping("/serviceInfo/{complexName}")
+    @PostMapping("/serviceInfo/{complexName}")
     private Map<Object, Object> serviceInfo(@PathVariable String complexName, @RequestHeader("Authorization") String jwtBearer) {
         return serviceComplexService.infoService(complexName, jwtBearer);
     }
