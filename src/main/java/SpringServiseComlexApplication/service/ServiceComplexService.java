@@ -4,9 +4,7 @@ import SpringServiseComlexApplication.repository.HistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ServiceComplexService {
@@ -58,6 +56,26 @@ public class ServiceComplexService {
         result.put("data", historyRepository.serviceInfo(complexName));
 
         return result;
+    }
+
+    public List<Map<String, Object>> serviceInfoCurrentAll(String jwtToken) {
+
+        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, Object> data = new HashMap<>();
+
+        String checkJwt = jwtService.checkJWT(jwtToken, "all");
+        if (checkJwt.equals("error")) {
+
+            result.add((Map<String, Object>) data.put("error", "invalid token"));
+            return result;
+        } else if (checkJwt.equals("no rights")) {
+            result.add((Map<String, Object>) data.put("error", "no rights"));
+            return result;
+        }
+
+        result = historyRepository.serviceCheck();
+
+        return  result;
     }
 
 }

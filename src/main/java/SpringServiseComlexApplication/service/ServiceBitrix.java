@@ -14,7 +14,7 @@ public class ServiceBitrix {
     private String token;
 
     private String info = "Произведено сервисное обслуживание оборудования ";
-    private String chatId = "chat193256";   //chat193256 - тестовый чат, chat214336 -рабочий /getDialogId - получить id чата
+    private String chatId = "chat214336";   //chat193256 - тестовый чат, chat214336 -рабочий /getDialogId - получить id чата
 
 
     public void messageBitrix(String complexName, String worksInfo, String username) throws IOException {
@@ -45,7 +45,7 @@ public class ServiceBitrix {
                 .build();
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("DIALOG_ID", chatId)
-                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + "Истек срок проведения сервисного обслуживания " + time + " ,необходимо провести обслуживание оборудования " + complexName + "\", NAME: \"" + complexName + " \", " + link_page + "}} ]")
+                .addFormDataPart("ATTACH", "[ {LINK: { DESC: \"" + "Истек срок проведения сервисного обслуживания " + time + ", необходимо провести обслуживание оборудования " + complexName + "\", NAME: \"" + complexName + " \", " + link_page + "}} ]")
                 .build();
         Request request = new Request.Builder()
                 .url("https://sespel-auto.bitrix24.ru/rest/1004/" + token + "/im.message.add.json")

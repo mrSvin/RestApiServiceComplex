@@ -6,6 +6,7 @@ import SpringServiseComlexApplication.service.ServiceComplexService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +31,11 @@ public class RestApiServiceComplex {
     @PostMapping("/serviceInfo/{complexName}")
     private Map<Object, Object> serviceInfo(@PathVariable String complexName, @RequestHeader("Authorization") String jwtBearer) {
         return serviceComplexService.infoService(complexName, jwtBearer);
+    }
+
+    @PostMapping("/serviceInfoCurrentAll")
+    private List<Map<String, Object>> serviceInfoCurrentAll(@RequestHeader("Authorization") String jwtBearer) {
+        return serviceComplexService.serviceInfoCurrentAll(jwtBearer);
     }
 
 }

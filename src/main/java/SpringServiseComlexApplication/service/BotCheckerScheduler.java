@@ -30,7 +30,8 @@ public class BotCheckerScheduler {
             Timestamp time = (Timestamp) data.get(i).get("max_time");
             Integer periodService = (Integer) data.get(i).get("period_service");
 
-            long timeLast = time.getTime() + periodService;
+            long timeStep = ((long) periodService) * 1000;
+            long timeLast = time.getTime() + timeStep;
 
             if (timeNow > timeLast) {
                 serviceBitrix.messageBitrixElapsedTime(complexName, new Timestamp(timeLast));
