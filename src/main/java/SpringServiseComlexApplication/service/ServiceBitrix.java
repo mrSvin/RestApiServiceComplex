@@ -39,7 +39,7 @@ public class ServiceBitrix {
 
     public void messageBitrixElapsedTime (String complexName, Timestamp time) throws IOException {
         System.out.println(complexName);
-        String link_page = "LINK: \"http://iot.sespel.com" + "\"";
+        String link_page = "LINK: \"http://iot.sespel.com/serviceAll" + "\"";
         System.out.println("token " + token);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
