@@ -25,7 +25,7 @@ public class BotCheckerScheduler {
         List<Map<String, Object>> data = historyRepository.serviceCheck();
         long timeNow = System.currentTimeMillis();
 
-        for (int i = 0; i < data.size() - 1; i++) {
+        for (int i = 0; i < data.size(); i++) {
             String complexName = (String) data.get(i).get("complex_name");
             Timestamp time = (Timestamp) data.get(i).get("max_time");
             Integer periodService = (Integer) data.get(i).get("period_service");
