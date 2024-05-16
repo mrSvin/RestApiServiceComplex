@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class BotCheckerScheduler {
@@ -22,7 +24,7 @@ public class BotCheckerScheduler {
 
     @Scheduled(cron = "0 0 9 * * ?") // запуск в 9:00 каждый день
     public void botCheckerScheduler() throws IOException {
-        List<Map<String, Object>> data = historyRepository.serviceCheck();
+        List<Map<String, Object>> data = historyRepository.serviceInfoCurrentAll();
         long timeNow = System.currentTimeMillis();
 
         for (int i = 0; i < data.size(); i++) {

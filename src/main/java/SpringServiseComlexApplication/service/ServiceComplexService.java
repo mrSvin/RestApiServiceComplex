@@ -66,15 +66,14 @@ public class ServiceComplexService {
         String checkJwt = jwtService.checkJWT(jwtToken, "all");
         if (checkJwt.equals("error")) {
 
-            result.add((Map<String, Object>) data.put("error", "invalid token"));
+            result.add((HashMap<String, Object>) data.put("error", "invalid token"));
             return result;
         } else if (checkJwt.equals("no rights")) {
-            result.add((Map<String, Object>) data.put("error", "no rights"));
+            result.add((HashMap<String, Object>) data.put("error", "no rights"));
             return result;
         }
 
-        result = historyRepository.serviceCheck();
-
+        result = historyRepository.serviceInfoCurrentAll();
         return  result;
     }
 
