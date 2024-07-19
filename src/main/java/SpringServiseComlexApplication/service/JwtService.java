@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class JwtService {
@@ -19,7 +20,7 @@ public class JwtService {
     public String checkJWT(String jwt, String roles) {
         try {
             Object roleJwt = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                    .setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))
                     .parseClaimsJws(jwt).getBody().get("role");
             System.out.println(roleJwt);
             if (roles.equals("service")) {
